@@ -89,27 +89,28 @@ const App = () => {
     }
 
     const create = async () => {
-        if (!people.some(({name}) => name === newName)) {
-            const newUser = (await API.post('/', {name: newName, number: newPhone})).data as Person
-            setPeople([...people, newUser])
-            changeNewName('')
-            changeNewPhone('')
-            notify('Success', `Created user ${newUser.name}`)
-        } else {
-            if (window.confirm(`${newName} already in the phonebook, do you want to update the number?`)) {
-                const user = {...people.find(p => p.name === newName), number: newPhone} as Person
-                try {
-                    await API.put(`${user && user._id}`, user)
-                    setPeople(people.map(p => p._id !== user._id ? p : user))
-                    changeNewName('')
-                    changeNewPhone('')
-                    notify('Success', `Updated user ${user.name}`)
-                } catch (e) {
-                    console.log(e)
-                    changeNotification({type: 'Error', message: `Failed to update ${user.name}, maybe they have been removed?`})
-                    setTimeout(() => changeNotification({type: 'Success', message: ''}), 5000)
+
+        try {
+            if (!people.some(({name}) => name === newName)) {
+                const newUser = (await API.post('/', {name: newName, number: newPhone})).data as Person
+                console.log(newUser)
+                setPeople([...people, newUser])
+                changeNewName('')
+                changeNewPhone('')
+                notify('Success', `Created user ${newUser.name}`)
+            } else {
+                if (window.confirm(`${newName} already in the phonebook, do you want to update the number?`)) {
+                    const user = {...people.find(p => p.name === newName), number: newPhone} as Person
+                        await API.put(`${user && user._id}`, user)
+                        setPeople(people.map(p => p._id !== user._id ? p : user))
+                        changeNewName('')
+                        changeNewPhone('')
+                        notify('Success', `Updated user ${user.name}`)
                 }
             }
+        } catch (e) {
+            console.log(e.response.data.error)
+            notify('Error', (e.response.data.error) || `Failed to update phonebook`)
         }
     }
 
@@ -122,7 +123,7 @@ const App = () => {
                 notify('Success', `Deleted user ${user && user.name}`)
             } catch (e) {
                 console.log(e)
-                notify('Error', `Failed to delete user ${user && user.name}`)
+                notify('Error', e.response.data.error || `Failed to delete user ${user && user.name}`)
             }
         }
     }
