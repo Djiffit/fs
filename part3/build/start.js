@@ -23,7 +23,6 @@ const initMongo = () => tslib_1.__awaiter(this, void 0, void 0, function* () {
     }
 });
 const errorHandler = (error, request, response, next) => {
-    console.log(error, Object.keys(error.name), error.kind, error.value);
     if (error.name === 'CastError' && error.kind === 'ObjectId') {
         return response.status(400).send({ error: 'Invalid id' });
     }
@@ -33,11 +32,15 @@ const errorHandler = (error, request, response, next) => {
     if (error.name === 'required-fields') {
         return response.status(400).send({ error: 'Missing required fields' });
     }
-    if (error.name === 'ValidationError' && error.errors && error.errors.kind === 'unique') {
-        return response.status(400).send({ error: error.errors.message });
-    }
-    if (error.name === 'ValidationError' && error.errors && error.errors.kind === 'minlength') {
-        return response.status(400).send({ error: error.errors.message });
+    if (error.errors) {
+        const ename = error.errors.name;
+        const enumber = error.errors.number;
+        if (ename) {
+            return response.status(400).send({ error: ename.message });
+        }
+        if (enumber) {
+            return response.status(400).send({ error: enumber.message });
+        }
     }
     next(error);
 };

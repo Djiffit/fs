@@ -6,8 +6,6 @@ import * as morgan from 'morgan'
 import * as cors from 'cors'
 import * as mongoose from 'mongoose'
 import Person, { getAllPeople, findPerson } from './models/person'
-import { runInNewContext } from 'vm';
-
 
 const PORT = process.env.PORT || 3001
 

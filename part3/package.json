@@ -8,7 +8,8 @@
     "start-dev": "nodemon --config \"./nodemon.json\"/",
     "build:ui": "rm -rf public && cd ../part2/phonebook && yarn build --prod && cp -r build ../../part3/public",
     "deploy": "git push heroku master",
-    "start": "rm -rf build && tsc --sourceMap false && node ./build/start.js",
+    "build": "rm -rf build && tsc --sourceMap false",
+    "start": "node ./build/start.js",
     "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && git push && npm run deploy",
     "logs:prod": "heroku logs --tail"
   },
@@ -35,6 +36,7 @@
     "mongoose": "^5.6.5",
     "mongoose-unique-validator": "^2.0.3",
     "morgan": "^1.9.1",
-    "node-typescript": "^0.1.3"
+    "node-typescript": "^0.1.3",
+    "tslib": "^1.10.0"
   }
 }
