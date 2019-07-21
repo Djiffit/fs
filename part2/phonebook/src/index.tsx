@@ -3,12 +3,15 @@ import ReactDOM from 'react-dom'
 import './index.css'
 import axios from 'axios'
 
-const API_URL = 'http://localhost:3001/persons'
+const API_URL = '/api/persons'
+const API = axios.create({
+    baseURL: API_URL
+})
 
 interface Person {
     name: string
     number: string
-    id: number
+    _id: string
 }
 
 interface InputProps {
@@ -18,7 +21,7 @@ interface InputProps {
 }
 
 interface Notification {
-    type: 'Error' | 'Success' | ''
+    type: 'Error' | 'Success'
     message: string
 }
 
@@ -39,10 +42,10 @@ const InputForm = ({fields, submit}: {fields: InputProps[], submit: () => void})
         </form>
     </div>
 
-const PeopleListing = ({people, remove}: {people: Person[], remove: (id: number) => void}) => 
+const PeopleListing = ({people, remove}: {people: Person[], remove: (_id: string) => void}) => 
     <div>
         <h3>Numbers</h3>
-        {people.map(({name, number, id}) => <p key={id}>{name} {number} <button onClick={() => remove(id)}>delete</button></p>)}
+        {people.map(({name, number, _id}) => <p key={_id}>{name} {number} <button onClick={() => remove(_id)}>delete</button></p>)}
     </div>
 
 const Error = ({type, message}: Notification) => {
@@ -54,10 +57,10 @@ const App = () => {
     const [people, setPeople] = useState<Array<Person>>([])
     const [newName, changeNewName] = useState('')
     const [newPhone, changeNewPhone] = useState('')
-    const [notification, changeNotification] = useState({message: '', type: ''} as Notification)
+    const [notification, changeNotification] = useState({message: '', type: 'Success'} as Notification)
 
     const fetchPeople = async () => {
-        const res = await axios.get(API_URL)
+        const res = await API.get('/')
         setPeople(res.data as Person[])
     }
 
@@ -82,12 +85,12 @@ const App = () => {
 
     const notify = (type: 'Error' | 'Success', message: string) => {
         changeNotification({type, message})
-        setTimeout(() => changeNotification({type: '', message: ''}), 5000)
+        setTimeout(() => changeNotification({type: 'Success', message: ''}), 5000)
     }
 
     const create = async () => {
         if (!people.some(({name}) => name === newName)) {
-            const newUser = (await axios.post(API_URL, {name: newName, number: newPhone})).data as Person
+            const newUser = (await API.post('/', {name: newName, number: newPhone})).data as Person
             setPeople([...people, newUser])
             changeNewName('')
             changeNewPhone('')
@@ -96,26 +99,26 @@ const App = () => {
             if (window.confirm(`${newName} already in the phonebook, do you want to update the number?`)) {
                 const user = {...people.find(p => p.name === newName), number: newPhone} as Person
                 try {
-                    await axios.put(`${API_URL}/${user && user.id}`, user)
-                    setPeople(people.map(p => p.id !== user.id ? p : user))
+                    await API.put(`${user && user._id}`, user)
+                    setPeople(people.map(p => p._id !== user._id ? p : user))
                     changeNewName('')
                     changeNewPhone('')
                     notify('Success', `Updated user ${user.name}`)
                 } catch (e) {
                     console.log(e)
                     changeNotification({type: 'Error', message: `Failed to update ${user.name}, maybe they have been removed?`})
-                    setTimeout(() => changeNotification({type: '', message: ''}), 5000)
+                    setTimeout(() => changeNotification({type: 'Success', message: ''}), 5000)
                 }
             }
         }
     }
 
-    const remove = async (id: number) => {
-        const user = people.find((p) => p.id === id)
+    const remove = async (id: string) => {
+        const user = people.find((p) => p._id === id)
         if (window.confirm(`Do you want to remove ${user && user.name} for sure?`)) {
             try {
-                await axios.delete(`${API_URL}/${id}`)
-                setPeople(people.filter(p => p.id !== id))
+                await API.delete(`/${id}`)
+                setPeople(people.filter(p => p._id !== id))
                 notify('Success', `Deleted user ${user && user.name}`)
             } catch (e) {
                 console.log(e)

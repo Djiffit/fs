@@ -1,0 +1,40 @@
+{
+  "name": "person-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start-dev": "nodemon --config \"./nodemon.json\"/",
+    "build:ui": "rm -rf public && cd ../part2/phonebook && yarn build --prod && cp -r build ../../part3/public",
+    "deploy": "git push heroku master",
+    "start": "rm -rf build && tsc --sourceMap false && node ./build/start.js",
+    "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && git push && npm run deploy",
+    "logs:prod": "heroku logs --tail"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^1.19.1",
+    "ts-node": "^8.3.0",
+    "tslint": "^5.18.0",
+    "typescript": "^3.5.3"
+  },
+  "dependencies": {
+    "@types/body-parser": "^1.17.0",
+    "@types/cors": "^2.8.5",
+    "@types/dotenv": "^6.1.1",
+    "@types/express": "^4.17.0",
+    "@types/mongoose": "^5.5.9",
+    "@types/mongoose-unique-validator": "^1.0.2",
+    "@types/morgan": "^1.7.36",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.0.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.6.5",
+    "mongoose-unique-validator": "^2.0.3",
+    "morgan": "^1.9.1",
+    "node-typescript": "^0.1.3"
+  }
+}
