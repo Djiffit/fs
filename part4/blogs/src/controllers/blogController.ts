@@ -3,17 +3,14 @@ import { Blog } from '../models/Blog'
 import { User } from '../models/User'
 import { UserType } from '../types'
 import { getUserId } from '../utils/user_helpers'
-
-export const blogRouter = Router()
+const blogRouter = Router()
 
 blogRouter.get('/', async (request, response) => {
     response.json(await Blog.find({}).populate('user', {username: 1, name: 1}))
 })
 
 blogRouter.post('/', async (request, response) => {
-    if (!request.body.likes) {
-        request.body.likes = 0
-    }
+    request.body.likes = request.body.likes || 0
 
     const reqId = await getUserId(request)
 
@@ -74,3 +71,5 @@ blogRouter.patch('/:id', async (request, response) => {
         response.status(400).json(e)
     }
 })
+
+export default blogRouter

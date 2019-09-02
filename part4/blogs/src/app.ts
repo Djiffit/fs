@@ -4,9 +4,9 @@ import { URL } from './utils/config'
 import * as bodyParser from 'body-parser'
 import * as cors from 'cors'
 import * as mongoose from 'mongoose'
-import { blogRouter } from './controllers/blogController'
-import { userRouter } from './controllers/userController'
 import { jwtMiddleware } from './middleware/token'
+import { userRouter } from './controllers/userController'
+import blogRouter from './controllers/blogController'
 
 const initMongo = async () => {
     try {

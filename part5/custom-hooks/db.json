@@ -1,0 +1,46 @@
+{
+  "notes": [
+    {
+      "content": "custom-hooks are awesome!",
+      "id": 1
+    },
+    {
+      "content": "best feature ever <3",
+      "id": 2
+    },
+    {
+      "content": "wefwef",
+      "id": 3
+    },
+    {
+      "content": "testestes",
+      "id": 4
+    },
+    {
+      "content": "bestest",
+      "id": 5
+    }
+  ],
+  "persons": [
+    {
+      "name": "mluukkai",
+      "number": "040-5483923",
+      "id": 1
+    },
+    {
+      "name": "tes",
+      "number": "awer",
+      "id": 2
+    },
+    {
+      "name": "tettero",
+      "number": "kokkeri",
+      "id": 3
+    },
+    {
+      "name": "tettero",
+      "number": "43343434",
+      "id": 4
+    }
+  ]
+}

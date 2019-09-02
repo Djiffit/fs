@@ -152,6 +152,7 @@ describe('blogs api', () => {
         await api.patch(`/api/blogs/${blog.id}`)
                     .send({likes: 666, title: 'kukkuluuruu', url: '123', author: 'matti'})
 
+        console.log(`/api/blogs/${blog.id}`)
         const getBlog = (await Blog.findById(blog.id)) as any as BlogType
 
         expect(getBlog.likes).toEqual(666)

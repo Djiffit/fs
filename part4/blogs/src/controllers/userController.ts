@@ -51,7 +51,7 @@ userRouter.post('/login', async (req, res) => {
                 id: dbUser._id,
             }, SECRET)
 
-            response.status(200).json({token, username: dbUser.username, name: dbUser.name})
+            res.status(200).json({token, username: dbUser.username, name: dbUser.name})
         } else {
             throw new Error('Invalid username or password')
         }
