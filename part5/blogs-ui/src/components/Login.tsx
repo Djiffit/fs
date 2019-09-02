@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
-import { UserType } from '../types';
+import React from 'react'
+import { UserType } from '../types'
 import { userLogin } from '../services/login'
-import { useField } from '../hooks/index';
+import { useField } from '../hooks/index'
 
 interface LoginProps {
     changeUser: (user: UserType) => void,
