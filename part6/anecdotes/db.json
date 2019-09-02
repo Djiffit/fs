@@ -1,0 +1,84 @@
+{
+  "anecdotes": [
+    {
+      "content": "If it hurts, do it more often",
+      "id": "47145",
+      "votes": 3
+    },
+    {
+      "content": "Adding manpower to a late software project makes it later!",
+      "id": "21149",
+      "votes": 19
+    },
+    {
+      "content": "The first 90 percent of the code accounts for the first 90 percent of the development time...The remaining 10 percent of the code accounts for the other 90 percent of the development time.",
+      "id": "69581",
+      "votes": 1
+    },
+    {
+      "content": "Any fool can write code that a computer can understand. Good programmers write code that humans can understand.",
+      "id": "36975",
+      "votes": 0
+    },
+    {
+      "content": "Premature optimization is the root of all evil.",
+      "id": "25170",
+      "votes": 3
+    },
+    {
+      "content": "Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.",
+      "id": "98312",
+      "votes": 3
+    },
+    {
+      "id": "18326",
+      "votes": 30,
+      "content": "Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it. !TOTALLT"
+    },
+    {
+      "id": "5604",
+      "votes": 3,
+      "content": "tesrer"
+    },
+    {
+      "id": "52474",
+      "votes": 3,
+      "content": "testerwr"
+    },
+    {
+      "id": "59830",
+      "votes": 1,
+      "content": "what the fukkk"
+    },
+    {
+      "id": "74490",
+      "votes": 0,
+      "content": "watetetetete"
+    },
+    {
+      "id": "44494",
+      "votes": 4,
+      "content": "waetawtewatawt"
+    },
+    {
+      "id": "8127",
+      "votes": 40,
+      "content": "That would have been caught with typescript"
+    },
+    {
+      "id": "25698",
+      "votes": 5,
+      "content": "testes"
+    },
+    {
+      "id": "93648",
+      "votes": 9,
+      "content": "master of testing"
+    },
+    {
+      "id": "86718",
+      "votes": 3,
+      "content": "vr is best :XD"
+    }
+  ]
+}
